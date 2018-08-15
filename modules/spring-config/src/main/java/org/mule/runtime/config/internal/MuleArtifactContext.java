@@ -47,6 +47,7 @@ import org.mule.runtime.api.exception.MuleRuntimeException;
 import org.mule.runtime.api.ioc.ConfigurableObjectProvider;
 import org.mule.runtime.api.ioc.ObjectProvider;
 import org.mule.runtime.api.meta.model.ExtensionModel;
+import org.mule.runtime.api.util.Lapse;
 import org.mule.runtime.api.util.Pair;
 import org.mule.runtime.app.declaration.api.ArtifactDeclaration;
 import org.mule.runtime.config.api.XmlConfigurationDocumentLoader;
@@ -205,6 +206,7 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
     this.serviceDiscoverer = new DefaultRegistry(muleContext);
     originalRegistry = ((MuleRegistryHelper) this.muleContext.getRegistry()).getDelegate();
 
+    Lapse lapse = new Lapse();
     registerComponentBuildingDefinitions(serviceRegistry, MuleArtifactContext.class.getClassLoader(),
                                          componentBuildingDefinitionRegistry,
                                          getExtensionModels(muleContext.getExtensionManager()),
@@ -217,11 +219,11 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
                                            (componentBuildingDefinitionProvider -> componentBuildingDefinitionProvider
                                                .getComponentBuildingDefinitions()));
     }
-
+    lapse.mark("register component definitions");
     xmlApplicationParser = createApplicationParser();
     this.beanDefinitionFactory =
         new BeanDefinitionFactory(componentBuildingDefinitionRegistry, muleContext.getErrorTypeRepository());
-
+    lapse.mark("create bean definition factory");
     createApplicationModel();
     validateAllConfigElementHaveParsers();
 
@@ -235,7 +237,12 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
 
   private XmlApplicationParser createApplicationParser() {
     ExtensionManager extensionManager = muleContext.getExtensionManager();
-    return XmlApplicationParser.createFromExtensionModels(extensionManager.getExtensions());
+    Lapse lapse = new Lapse();
+    try {
+      return XmlApplicationParser.createFromExtensionModels(extensionManager.getExtensions());
+    } finally {
+      lapse.mark("crate application parser");
+    }
   }
 
   private void validateAllConfigElementHaveParsers() {
@@ -251,6 +258,7 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
   }
 
   private void createApplicationModel() {
+    Lapse lapse = new Lapse();
     try {
       ArtifactConfig artifactConfig = resolveArtifactConfig();
       Set<ExtensionModel> extensions =
@@ -265,6 +273,8 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
     } catch (Exception e) {
       throw new MuleRuntimeException(e);
     }
+
+    lapse.mark("create application model");
   }
 
   private ArtifactConfig resolveArtifactConfig() {
@@ -486,6 +496,7 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
   protected List<String> createApplicationComponents(DefaultListableBeanFactory beanFactory, ApplicationModel applicationModel,
                                                      boolean mustBeRoot) {
 
+    Lapse lapse = new Lapse();
     // This should only be done once at the initial application model creation, called from Spring
     List<Pair<ComponentModel, Optional<String>>> objectProvidersByName =
         lookObjectProvidersComponentModels(applicationModel);
@@ -574,6 +585,7 @@ public class MuleArtifactContext extends AbstractRefreshableConfigApplicationCon
       }
     }));
 
+    lapse.mark("createApplicationComponents");
     return createdComponentModels;
   }
 

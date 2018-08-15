@@ -33,6 +33,17 @@ import static org.mule.runtime.module.artifact.api.classloader.RegionClassLoader
 import static org.mule.runtime.module.artifact.api.classloader.RegionClassLoader.createClassLoaderAlreadyInRegionError;
 import static org.mule.runtime.module.artifact.api.classloader.RegionClassLoader.duplicatePackageMappingError;
 import static org.mule.runtime.module.artifact.api.classloader.RegionClassLoader.illegalPackageMappingError;
+import org.mule.runtime.core.api.util.ClassUtils;
+import org.mule.runtime.core.internal.util.EnumerationAdapter;
+import org.mule.runtime.module.artifact.api.descriptor.ArtifactDescriptor;
+import org.mule.runtime.module.artifact.api.descriptor.BundleDependency;
+import org.mule.runtime.module.artifact.api.descriptor.BundleDescriptor;
+import org.mule.runtime.module.artifact.api.descriptor.ClassLoaderModel;
+import org.mule.tck.junit4.AbstractMuleTestCase;
+import org.mule.tck.util.EnumerationMatcher;
+
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -47,18 +58,6 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import org.mule.runtime.core.api.util.ClassUtils;
-import org.mule.runtime.core.internal.util.EnumerationAdapter;
-import org.mule.runtime.module.artifact.api.descriptor.ArtifactDescriptor;
-import org.mule.runtime.module.artifact.api.descriptor.BundleDependency;
-import org.mule.runtime.module.artifact.api.descriptor.BundleDescriptor;
-import org.mule.runtime.module.artifact.api.descriptor.ClassLoaderModel;
-import org.mule.tck.junit4.AbstractMuleTestCase;
-import org.mule.tck.util.EnumerationMatcher;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
 
 public class RegionClassLoaderTestCase extends AbstractMuleTestCase {
 
