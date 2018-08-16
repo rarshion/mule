@@ -145,7 +145,7 @@ abstract class AbstractMessageProcessorChain extends AbstractExecutableComponent
           // #1 Register local error hook to wrap exceptions in a MessagingException maintaining failed event.
           .subscriberContext(context -> context.put(REACTOR_ON_OPERATOR_ERROR_LOCAL, getLocalOperatorErrorHook(processor)))
           // #2 Register continue error strategy to handle errors without stopping the stream.
-          .errorStrategyContinue(getContinueStrategyErrorHandler(processor));
+          .onErrorContinue(getContinueStrategyErrorHandler(processor));
     }
     return stream.subscriberContext(ctx -> {
       ClassLoader tccl = currentThread().getContextClassLoader();
@@ -183,12 +183,12 @@ abstract class AbstractMessageProcessorChain extends AbstractExecutableComponent
    * Used to process failed events which are dropped from the reactor stream due to error. Errors are processed by invoking the
    * current EventContext error callback.
    */
-  private BiConsumer<Throwable, CoreEvent> getContinueStrategyErrorHandler(Processor processor) {
+  private BiConsumer<Throwable, Object> getContinueStrategyErrorHandler(Processor processor) {
     return (throwable, event) -> {
       throwable = Exceptions.unwrap(throwable);
       if (throwable instanceof MessagingException) {
         // Give priority to failed event from reactor over MessagingException event.
-        BaseEventContext context = (BaseEventContext) (event != null ? event.getContext()
+        BaseEventContext context = (BaseEventContext) (event != null ? ((CoreEvent) event).getContext()
             : ((MessagingException) throwable).getEvent().getContext());
         errorNotification(processor).andThen(e -> context.error(e))
             .accept(resolveMessagingException(processor).apply((MessagingException) throwable));
@@ -197,9 +197,9 @@ abstract class AbstractMessageProcessorChain extends AbstractExecutableComponent
           LOGGER.error(UNEXPECTED_ERROR_HANDLER_STATE_MESSAGE, throwable);
           throw new IllegalStateException(UNEXPECTED_ERROR_HANDLER_STATE_MESSAGE);
         } else {
-          BaseEventContext context = ((BaseEventContext) event.getContext());
+          BaseEventContext context = ((BaseEventContext) ((CoreEvent) event).getContext());
           errorNotification(processor).andThen(e -> context.error(e))
-              .accept(resolveException(processor, event, throwable));
+              .accept(resolveException(processor, ((CoreEvent) event), throwable));
         }
       }
     };

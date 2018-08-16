@@ -116,7 +116,7 @@ public class ReactiveInterceptorAdapter implements BiFunction<Processor, Reactiv
                                                             error.getCause(), (Component) component, of(error)))
               .cast(InternalEvent.class)
               .map(doAfter(interceptor, component, empty()))
-              .errorStrategyStop());
+              .onErrorStop());
     } else {
       return next;
     }
