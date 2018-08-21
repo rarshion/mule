@@ -184,11 +184,16 @@ abstract class AbstractMessageProcessorChain extends AbstractExecutableComponent
    * current EventContext error callback.
    */
   private BiConsumer<Throwable, Object> getContinueStrategyErrorHandler(Processor processor) {
-    return (throwable, event) -> {
+    return (throwable, object) -> {
+      if (!(object instanceof CoreEvent)) {
+        LOGGER.error(UNEXPECTED_ERROR_HANDLER_STATE_MESSAGE, throwable);
+        throw new IllegalStateException(UNEXPECTED_ERROR_HANDLER_STATE_MESSAGE);
+      }
+      CoreEvent event = (CoreEvent) object;
       throwable = Exceptions.unwrap(throwable);
       if (throwable instanceof MessagingException) {
         // Give priority to failed event from reactor over MessagingException event.
-        BaseEventContext context = (BaseEventContext) (event != null ? ((CoreEvent) event).getContext()
+        BaseEventContext context = (BaseEventContext) (event != null ? event.getContext()
             : ((MessagingException) throwable).getEvent().getContext());
         errorNotification(processor).andThen(e -> context.error(e))
             .accept(resolveMessagingException(processor).apply((MessagingException) throwable));
@@ -197,9 +202,9 @@ abstract class AbstractMessageProcessorChain extends AbstractExecutableComponent
           LOGGER.error(UNEXPECTED_ERROR_HANDLER_STATE_MESSAGE, throwable);
           throw new IllegalStateException(UNEXPECTED_ERROR_HANDLER_STATE_MESSAGE);
         } else {
-          BaseEventContext context = ((BaseEventContext) ((CoreEvent) event).getContext());
+          BaseEventContext context = ((BaseEventContext) event.getContext());
           errorNotification(processor).andThen(e -> context.error(e))
-              .accept(resolveException(processor, ((CoreEvent) event), throwable));
+              .accept(resolveException(processor, event, throwable));
         }
       }
     };
