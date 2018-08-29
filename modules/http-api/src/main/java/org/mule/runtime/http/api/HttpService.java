@@ -6,11 +6,13 @@
  */
 package org.mule.runtime.http.api;
 
+import org.mule.api.annotation.Beta;
 import org.mule.runtime.api.service.Service;
 import org.mule.runtime.http.api.client.HttpClient;
 import org.mule.runtime.http.api.client.HttpClientFactory;
 import org.mule.runtime.http.api.server.HttpServer;
 import org.mule.runtime.http.api.server.HttpServerFactory;
+import org.mule.runtime.http.api.ws.WebSocketManager;
 import org.mule.runtime.http.api.utils.RequestMatcherRegistry;
 import org.mule.runtime.http.api.utils.RequestMatcherRegistry.RequestMatcherRegistryBuilder;
 
@@ -36,5 +38,8 @@ public interface HttpService extends Service {
    * @since 4.1.5
    */
   RequestMatcherRegistryBuilder getRequestMatcherRegistryBuilder();
+
+  @Beta
+  WebSocketManager getWebSocketManager();
 
 }
