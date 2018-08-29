@@ -30,6 +30,7 @@ import org.mule.runtime.api.exception.MuleException;
 import org.mule.runtime.core.api.event.CoreEvent;
 import org.mule.runtime.core.api.util.StringUtils;
 import org.mule.runtime.core.api.util.SystemUtils;
+import org.mule.tck.junit4.rule.SystemProperty;
 import org.mule.tck.junit4.rule.WarningTimeout;
 import org.mule.tck.report.ThreadDumpOnTimeOut;
 
@@ -44,6 +45,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.ClassRule;
 import org.junit.Rule;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.RuleChain;
@@ -82,8 +84,6 @@ public abstract class AbstractMuleTestCase {
     } else {
       verbose = true;
     }
-
-    System.setProperty(TESTING_MODE_PROPERTY_NAME, "true");
   }
 
   private static final Logger LOGGER = getLogger(AbstractMuleTestCase.class);
@@ -94,6 +94,9 @@ public abstract class AbstractMuleTestCase {
   private boolean offline = "true".equalsIgnoreCase(System.getProperty("org.mule.offline"));
 
   private int testTimeoutSecs = getTimeoutSystemProperty();
+
+  @ClassRule
+  public static SystemProperty TESTING_MODE_PROPERTY = new SystemProperty(TESTING_MODE_PROPERTY_NAME, "true");
 
   @Rule
   public TestName name = new TestName();
