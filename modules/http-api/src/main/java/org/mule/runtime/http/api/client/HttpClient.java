@@ -6,9 +6,14 @@
  */
 package org.mule.runtime.http.api.client;
 
+import org.mule.api.annotation.Experimental;
+import org.mule.api.annotation.NoImplement;
 import org.mule.runtime.http.api.client.auth.HttpAuthentication;
+import org.mule.runtime.http.api.client.ws.WebSocketCallback;
 import org.mule.runtime.http.api.domain.message.request.HttpRequest;
 import org.mule.runtime.http.api.domain.message.response.HttpResponse;
+import org.mule.runtime.http.api.ws.WebSocket;
+import org.mule.runtime.http.api.ws.WebSocketManager;
 
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -22,6 +27,7 @@ import java.util.function.BiConsumer;
  *
  * @since 4.0
  */
+@NoImplement
 public interface HttpClient {
 
   /**
@@ -66,4 +72,16 @@ public interface HttpClient {
   CompletableFuture<HttpResponse> sendAsync(HttpRequest request, int responseTimeout, boolean followRedirects,
                                             HttpAuthentication authentication);
 
+  @Experimental
+  default CompletableFuture<WebSocket> openWebSocket(HttpRequest request,
+                                                     HttpRequestOptions requestOptions,
+                                                     String socketId,
+                                                     WebSocketCallback callback) {
+    throw new UnsupportedOperationException("WebSockets are only supported in Enterprise Edition");
+  }
+
+  @Experimental
+  default WebSocketManager getWebSocketManager() {
+    throw new UnsupportedOperationException("WebSockets are only supported in Enterprise Edition");
+  }
 }
