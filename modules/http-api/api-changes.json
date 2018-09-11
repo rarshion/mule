@@ -87,7 +87,7 @@
           "classSimpleName": "HttpService",
           "methodName": "getWebSocketManager",
           "elementKind": "method",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.annotation.added",
@@ -106,7 +106,7 @@
           "package": "org.mule.runtime.http.api.client.ws",
           "classSimpleName": "WebSocketCallback",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.nonFinalClassInheritsFromNewClass",
@@ -170,7 +170,7 @@
           "package": "org.mule.runtime.http.api.server.ws",
           "classSimpleName": "WebSocketConnectionHandler",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -178,7 +178,7 @@
           "package": "org.mule.runtime.http.api.server.ws",
           "classSimpleName": "WebSocketConnectionRejectedException",
           "elementKind": "class",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -186,7 +186,7 @@
           "package": "org.mule.runtime.http.api.server.ws",
           "classSimpleName": "WebSocketMessageHandler",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -194,7 +194,7 @@
           "package": "org.mule.runtime.http.api.server.ws",
           "classSimpleName": "WebSocketRequest",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -202,7 +202,7 @@
           "package": "org.mule.runtime.http.api.server.ws",
           "classSimpleName": "WebSocketResource",
           "elementKind": "class",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -210,7 +210,7 @@
           "package": "org.mule.runtime.http.api.server.ws",
           "classSimpleName": "WebSocketResourceHandler",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -218,7 +218,7 @@
           "package": "org.mule.runtime.http.api.ws",
           "classSimpleName": "WebSocket",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -226,7 +226,7 @@
           "package": "org.mule.runtime.http.api.ws",
           "classSimpleName": "WebSocketAlreadyExistsException",
           "elementKind": "class",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -234,7 +234,7 @@
           "package": "org.mule.runtime.http.api.ws",
           "classSimpleName": "WebSocketManager",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
         },
         {
           "code": "java.class.added",
@@ -242,7 +242,15 @@
           "package": "org.mule.runtime.http.api.ws",
           "classSimpleName": "WebSocketMessage",
           "elementKind": "interface",
-          "justification": "@Beta feature. Feature flagged by default"
+          "justification": "@Experimental feature. Feature flagged by default"
+        },
+        {
+          "code": "java.class.added",
+          "new": "interface org.mule.runtime.http.api.ws.WebSocketRequest",
+          "package": "org.mule.runtime.http.api.ws",
+          "classSimpleName": "WebSocketRequest",
+          "elementKind": "interface",
+          "justification": "@Experimental feature. Feature flagged by default"
         }
       ]
     }
