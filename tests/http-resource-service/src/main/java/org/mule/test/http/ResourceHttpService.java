@@ -15,7 +15,6 @@ import org.mule.runtime.http.api.client.HttpClient;
 import org.mule.runtime.http.api.client.HttpClientConfiguration;
 import org.mule.runtime.http.api.client.HttpClientFactory;
 import org.mule.runtime.http.api.client.auth.HttpAuthentication;
-import org.mule.runtime.http.api.client.ws.WebSocketCallback;
 import org.mule.runtime.http.api.domain.entity.ByteArrayHttpEntity;
 import org.mule.runtime.http.api.domain.entity.EmptyHttpEntity;
 import org.mule.runtime.http.api.domain.entity.HttpEntity;
@@ -23,7 +22,6 @@ import org.mule.runtime.http.api.domain.message.request.HttpRequest;
 import org.mule.runtime.http.api.domain.message.response.HttpResponse;
 import org.mule.runtime.http.api.server.HttpServerFactory;
 import org.mule.runtime.http.api.utils.RequestMatcherRegistry;
-import org.mule.runtime.http.api.ws.WebSocket;
 import org.mule.runtime.http.api.ws.WebSocketManager;
 
 import java.io.IOException;
@@ -97,13 +95,6 @@ public class ResourceHttpService implements HttpService {
           @Override
           public void stop() {
 
-          }
-
-          @Override
-          public CompletableFuture<WebSocket> openWebSocket(HttpRequest request, int responseTimeout, boolean followRedirects,
-                                                            HttpAuthentication authentication, String socketId,
-                                                            WebSocketCallback callback) {
-            throw new UnsupportedOperationException("Not supported in this test");
           }
 
           @Override
