@@ -21,16 +21,17 @@ class DefaultHttpRequest extends BaseHttpMessage implements HttpRequest {
 
   private final URI uri;
   private final String path;
+  private final HttpProtocol protocol;
   private final String method;
-  private HttpProtocol version;
   private final MultiMap<String, String> queryParams;
   private final HttpEntity entity;
 
-  DefaultHttpRequest(URI uri, String path, String method, MultiMap<String, String> headers,
+  DefaultHttpRequest(URI uri, String path, String method, HttpProtocol protocol, MultiMap<String, String> headers,
                      MultiMap<String, String> queryParams, HttpEntity entity) {
     super(headers);
     this.uri = uri;
     this.path = path;
+    this.protocol = protocol;
     this.method = method;
     this.queryParams = queryParams;
     this.entity = entity;
@@ -38,7 +39,7 @@ class DefaultHttpRequest extends BaseHttpMessage implements HttpRequest {
 
   @Override
   public HttpProtocol getProtocol() {
-    return this.version;
+    return protocol;
   }
 
   @Override
