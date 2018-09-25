@@ -311,6 +311,15 @@
           "classSimpleName": "FragmentHandler",
           "elementKind": "interface",
           "justification": "@Experimental feature. Feature flagged by default"
+        },
+        {
+          "code": "java.method.added",
+          "new": "method org.mule.runtime.http.api.domain.message.request.HttpRequestBuilder org.mule.runtime.http.api.domain.message.request.HttpRequestBuilder::protocol(org.mule.runtime.http.api.domain.HttpProtocol)",
+          "package": "org.mule.runtime.http.api.domain.message.request",
+          "classSimpleName": "HttpRequestBuilder",
+          "methodName": "protocol",
+          "elementKind": "method",
+          "justification": "This was actually missing"
         }
       ]
     }
