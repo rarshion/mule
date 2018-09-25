@@ -89,5 +89,7 @@ public interface HttpServer {
   RequestHandlerManager addRequestHandler(final String path, final RequestHandler requestHandler);
 
   @Experimental
-  WebSocketResourceHandler addWebSocketHandler(WebSocketResource resource);
+  default WebSocketResourceHandler addWebSocketHandler(WebSocketResource resource) {
+    throw new UnsupportedOperationException("WebSockets are only supported in Enterprise Edition");
+  }
 }

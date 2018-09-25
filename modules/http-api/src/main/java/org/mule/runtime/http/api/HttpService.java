@@ -41,6 +41,8 @@ public interface HttpService extends Service {
   RequestMatcherRegistryBuilder getRequestMatcherRegistryBuilder();
 
   @Experimental
-  WebSocketManager getWebSocketManager();
+  default WebSocketManager getWebSocketManager() {
+    throw new UnsupportedOperationException("WebSockets are only supported in Enterprise Edition");
+  }
 
 }
