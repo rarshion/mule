@@ -331,12 +331,12 @@
           "justification": "@Experimental feature. Feature flagged by default"
         },
         {
-        "code": "java.method.defaultMethodAddedToInterface",
-        "new": "method org.mule.runtime.http.api.ws.WebSocketManager org.mule.runtime.http.api.client.HttpClient::getWebSocketManager()",
-        "package": "org.mule.runtime.http.api.client",
-        "classSimpleName": "HttpClient",
-        "methodName": "getWebSocketManager",
-        "elementKind": "method",
+          "code": "java.method.defaultMethodAddedToInterface",
+          "new": "method org.mule.runtime.http.api.ws.WebSocketManager org.mule.runtime.http.api.client.HttpClient::getWebSocketManager()",
+          "package": "org.mule.runtime.http.api.client",
+          "classSimpleName": "HttpClient",
+          "methodName": "getWebSocketManager",
+          "elementKind": "method",
           "justification": "@Experimental feature. Feature flagged by default"
         }
       ]
